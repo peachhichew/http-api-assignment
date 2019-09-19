@@ -63,8 +63,6 @@ const notFound = (request, response, params, acceptedTypes) => {
     id: "notFound"
   };
 
-  // respondJSON(request, response, 404, responseJSON);
-
   if (acceptedTypes[0] === "text/xml") {
     let responseXML = "<response>";
     responseXML = `${responseXML} <message>${responseJSON.message}</message>`;
@@ -83,19 +81,11 @@ const unauthorized = (request, response, params, acceptedTypes) => {
     message: "You have successfully viewed the content."
   };
 
-  // if (!params.valid || params.valid !== "yes") {
-  //   responseJSON.message = "Missing loggedIn query parameter set to yes";
-  //   responseJSON.id = "unauthorized";
-  //   return respondJSON(request, response, 401, responseJSON);
-  // }
-
-  // return respondJSON(request, response, 200, responseJSON);
-
   let responseXML;
   let responseObj;
 
   if (acceptedTypes[0] === "text/xml") {
-    if (!params.valid || params.valid !== "yes") {
+    if (!params.loggedIn || params.loggedIn !== "yes") {
       responseJSON.message = "Missing loggedIn query parameter set to yes";
       responseJSON.id = "unauthorized";
       responseXML = "<response>";
@@ -111,7 +101,7 @@ const unauthorized = (request, response, params, acceptedTypes) => {
     return respondJSON(request, response, 200, responseXML, "text/xml");
   }
 
-  if (!params.valid || params.valid !== "yes") {
+  if (!params.loggedIn || params.loggedIn !== "yes") {
     responseJSON.message = "Missing loggedIn query parameter set to yes";
     responseJSON.id = "unauthorized";
     responseObj = JSON.stringify(responseJSON);
@@ -126,8 +116,6 @@ const forbidden = (request, response, params, acceptedTypes) => {
     message: "You do not have access to this content.",
     id: "forbidden"
   };
-
-  // respondJSON(request, response, 403, responseJSON);
 
   if (acceptedTypes[0] === "text/xml") {
     let responseXML = "<response>";
@@ -147,8 +135,6 @@ const internal = (request, response, params, acceptedTypes) => {
     id: "internalError"
   };
 
-  // respondJSON(request, response, 500, responseJSON);
-
   if (acceptedTypes[0] === "text/xml") {
     let responseXML = "<response>";
     responseXML = `${responseXML} <message>${responseJSON.message}</message>`;
@@ -167,8 +153,6 @@ const notImplemented = (request, response, params, acceptedTypes) => {
       "A get request for this page has not been implemented yet. Check again later for updated content.",
     id: "notImplemented"
   };
-
-  // respondJSON(request, response, 501, responseJSON);
 
   if (acceptedTypes[0] === "text/xml") {
     let responseXML = "<response>";

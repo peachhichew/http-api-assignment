@@ -14,7 +14,7 @@
         case 200:
           content.innerHTML = "<b>Success</b>";
           break;
-        case 400:
+        case 400: // bad request
           content.innerHTML = "<b>Bad Request</b>";
           break;
         case 401: // unauthorized
@@ -50,10 +50,6 @@
           content.innerHTML += `<p>Message: ${message}</p>`;
         }
       }
-
-      // if (obj.message) {
-      //   content.innerHTML += `<p>Message: ${obj.message}</p>`;
-      // }
     };
 
     const sendAjax = (url, type) => {
