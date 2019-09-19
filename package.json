@@ -1,0 +1,26 @@
+{
+  "name": "http-api-assignment",
+  "version": "1.0.0",
+  "description": "This assignment uses Node.js to build a simple HTTP API complete with status codes and accept headers. It also detects whether the client is requesting XML or JSON and responds accordingly.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Tests complete\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peachhichew/http-api-assignment.git"
+  },
+  "author": "Sky Wan",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/peachhichew/http-api-assignment/issues"
+  },
+  "homepage": "https://github.com/peachhichew/http-api-assignment#readme",
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}
