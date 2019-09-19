@@ -8,14 +8,8 @@
   <script type="text/babel">
     const handleResponse = (xhr) => {
       const content = document.querySelector('#content');
-      const obj = JSON.parse(xhr.response);
-      // console.dir(obj);
-
-      // if (document.querySelector('#type').value === "text/xml") {
-      //   console.log("is XML");
-      //   console.dir(xhr.response);
-      // }
-
+      const type = xhr.getResponseHeader('content-type');
+      
       switch (xhr.status) {
         case 200:
           content.innerHTML = "<b>Success</b>";
@@ -43,9 +37,23 @@
           break;
       }
 
-      if (obj.message) {
-        content.innerHTML += `<p>Message: ${obj.message}</p>`;
+      if (type === 'application/json') {
+        const obj = JSON.parse(xhr.response);
+        console.dir(obj);
+        if (obj.message) {
+          content.innerHTML += `<p>Message: ${obj.message}</p>`;
+        }
+      } else if (type === 'text/xml') {
+        const message = xhr.responseXML.querySelector('message').textContent;
+        console.dir(xhr.responseXML);
+        if (message) {
+          content.innerHTML += `<p>Message: ${message}</p>`;
+        }
       }
+
+      // if (obj.message) {
+      //   content.innerHTML += `<p>Message: ${obj.message}</p>`;
+      // }
     };
 
     const sendAjax = (url, type) => {

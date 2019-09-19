@@ -7,10 +7,6 @@ const jsonHandler = require('./jsonResponses.js');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const urlStruct = {
-  // '/': htmlHandler.getIndex,
-  // '/success': jsonHandler.success,
-  // '/badRequest': jsonHandler.badRequest,
-  // notFound: jsonHandler.notFound,
   GET: {
     '/': htmlHandler.getIndex,
     '/style.css': htmlHandler.getCSS,
@@ -29,17 +25,25 @@ const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
   const params = query.parse(parsedUrl.query);
 
-  // if (urlStruct[parsedUrl.pathname]) {
-  //   urlStruct[parsedUrl.pathname](request, response, params);
-  // } else {
-  //   urlStruct.notFound(request, response, params);
-  // }
+  // grab the 'accept' headers and split them into an array
+  const acceptedTypes = request.headers.accept.split(',');
 
-  console.log(params);
+  console.log('params', params);
+  console.log('acceptedTypes', acceptedTypes);
   if (urlStruct[request.method][parsedUrl.pathname]) {
-    urlStruct[request.method][parsedUrl.pathname](request, response, params);
+    urlStruct[request.method][parsedUrl.pathname](
+      request,
+      response,
+      params,
+      acceptedTypes,
+    );
   } else {
-    urlStruct[request.method].notFound(request, response, params);
+    urlStruct[request.method].notFound(
+      request,
+      response,
+      params,
+      acceptedTypes,
+    );
   }
 };
 
