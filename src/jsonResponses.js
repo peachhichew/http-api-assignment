@@ -53,7 +53,8 @@ const badRequest = (request, response, params, acceptedTypes) => {
     return respondJSON(request, response, 200, responseXML, "text/xml");
   }
 
-  // if the mime type is json, check for the validity of the param and send back an appropriate response
+  // if the mime type is json, check for the validity of the param and send
+  // back an appropriate response
   if (!params.valid || params.valid !== "true") {
     responseJSON.message = "Missing valid query parameter set to true";
     responseJSON.id = "badRequest";
