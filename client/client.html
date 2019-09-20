@@ -37,13 +37,16 @@
           break;
       }
 
+      // check if we are returning json or xml
       if (type === 'application/json') {
+        // parse the json and update the text on the screen
         const obj = JSON.parse(xhr.response);
         console.dir(obj);
         if (obj.message) {
           content.innerHTML += `<p>Message: ${obj.message}</p>`;
         }
       } else if (type === 'text/xml') {
+        // update the text on the screen using xml
         const message = xhr.responseXML.querySelector('message').textContent;
         console.dir(xhr.responseXML);
         if (message) {
@@ -52,11 +55,17 @@
       }
     };
 
+    // use AJAX to handle the responses from each status code and update
+    // the text accordingly 
     const sendAjax = (url, type) => {
+      // create a new XHR object
       const xhr = new XMLHttpRequest();
+      // set the xhr to GET a request to a certain url
       xhr.open('GET', url);
+      // set headers for mime type
       xhr.setRequestHeader("Accept", type);
       xhr.onload = () => handleResponse(xhr);
+      // send request to server
       xhr.send();
     };
 
